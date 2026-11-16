@@ -28,7 +28,7 @@
     "fastify-type-provider-zod": "^2.0.0",
     "mongodb": "^7.8.0",
     "newrelic": "^12.25.1",
-    "zod": "^3.23.8"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/newrelic": "^9.14.8",
