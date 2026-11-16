@@ -1,0 +1,2041 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Oficina Mecânica — Orçamento e Pagamento",
+    "version": "1.0.0",
+    "description": "Orçamentos, aprovação pelo cliente e cobrança pelo Mercado Pago (modo simulado). Participa da saga de atendimento pelo RabbitMQ."
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Liveness",
+        "tags": [
+          "Saúde"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "summary": "Readiness — MongoDB acessível",
+        "tags": [
+          "Saúde"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/orcamentos/": {
+      "get": {
+        "summary": "Listar orçamentos",
+        "tags": [
+          "Orçamentos"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "exclusiveMinimum": true,
+              "minimum": 0,
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "exclusiveMinimum": true,
+              "minimum": 0,
+              "maximum": 100,
+              "default": 20
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AGUARDANDO_APROVACAO",
+                "APROVADO",
+                "REPROVADO",
+                "PAGO",
+                "PAGAMENTO_RECUSADO",
+                "CANCELADO",
+                "ESTORNADO"
+              ]
+            },
+            "in": "query",
+            "name": "status",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "ordemId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "sagaId": {
+                            "type": "string"
+                          },
+                          "numeroOS": {
+                            "type": "integer"
+                          },
+                          "cliente": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "nome": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "nome",
+                              "email"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "itens": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "tipo": {
+                                  "type": "string",
+                                  "enum": [
+                                    "SERVICO",
+                                    "PECA"
+                                  ]
+                                },
+                                "referenciaId": {
+                                  "type": "string"
+                                },
+                                "nome": {
+                                  "type": "string"
+                                },
+                                "quantidade": {
+                                  "type": "integer"
+                                },
+                                "precoUnitario": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "tipo",
+                                "referenciaId",
+                                "nome",
+                                "quantidade",
+                                "precoUnitario"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "valorTotal": {
+                            "type": "number"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "pagamento": {
+                            "type": "object",
+                            "properties": {
+                              "status": {
+                                "type": "string"
+                              },
+                              "preferenciaId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "linkPagamento": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "pagamentoId": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "valor": {
+                                "type": "number",
+                                "nullable": true
+                              },
+                              "metodo": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "detalhe": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "atualizadoEm": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            },
+                            "required": [
+                              "status",
+                              "preferenciaId",
+                              "linkPagamento",
+                              "pagamentoId",
+                              "valor",
+                              "metodo",
+                              "detalhe",
+                              "atualizadoEm"
+                            ],
+                            "additionalProperties": false,
+                            "nullable": true
+                          },
+                          "motivo": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "historico": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "status": {
+                                  "type": "string"
+                                },
+                                "observacao": {
+                                  "type": "string"
+                                },
+                                "em": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                }
+                              },
+                              "required": [
+                                "status",
+                                "observacao",
+                                "em"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "versao": {
+                            "type": "integer"
+                          },
+                          "criadoEm": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "atualizadoEm": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "ordemId",
+                          "sagaId",
+                          "numeroOS",
+                          "cliente",
+                          "itens",
+                          "valorTotal",
+                          "status",
+                          "pagamento",
+                          "motivo",
+                          "historico",
+                          "versao",
+                          "criadoEm",
+                          "atualizadoEm"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "total",
+                        "totalPages"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "meta"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orcamentos/{id}": {
+      "get": {
+        "summary": "Buscar orçamento",
+        "tags": [
+          "Orçamentos"
+        ],
+        "description": "O cliente só enxerga os próprios orçamentos.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "ordemId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "sagaId": {
+                      "type": "string"
+                    },
+                    "numeroOS": {
+                      "type": "integer"
+                    },
+                    "cliente": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nome",
+                        "email"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "itens": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tipo": {
+                            "type": "string",
+                            "enum": [
+                              "SERVICO",
+                              "PECA"
+                            ]
+                          },
+                          "referenciaId": {
+                            "type": "string"
+                          },
+                          "nome": {
+                            "type": "string"
+                          },
+                          "quantidade": {
+                            "type": "integer"
+                          },
+                          "precoUnitario": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "tipo",
+                          "referenciaId",
+                          "nome",
+                          "quantidade",
+                          "precoUnitario"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "valorTotal": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "pagamento": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "preferenciaId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "linkPagamento": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "pagamentoId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "valor": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "metodo": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "detalhe": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "atualizadoEm": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "preferenciaId",
+                        "linkPagamento",
+                        "pagamentoId",
+                        "valor",
+                        "metodo",
+                        "detalhe",
+                        "atualizadoEm"
+                      ],
+                      "additionalProperties": false,
+                      "nullable": true
+                    },
+                    "motivo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "historico": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "observacao": {
+                            "type": "string"
+                          },
+                          "em": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "status",
+                          "observacao",
+                          "em"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "versao": {
+                      "type": "integer"
+                    },
+                    "criadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "atualizadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "ordemId",
+                    "sagaId",
+                    "numeroOS",
+                    "cliente",
+                    "itens",
+                    "valorTotal",
+                    "status",
+                    "pagamento",
+                    "motivo",
+                    "historico",
+                    "versao",
+                    "criadoEm",
+                    "atualizadoEm"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orcamentos/ordem/{ordemId}": {
+      "get": {
+        "summary": "Buscar orçamento pela OS",
+        "tags": [
+          "Orçamentos"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "ordemId",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "ordemId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "sagaId": {
+                      "type": "string"
+                    },
+                    "numeroOS": {
+                      "type": "integer"
+                    },
+                    "cliente": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nome",
+                        "email"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "itens": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tipo": {
+                            "type": "string",
+                            "enum": [
+                              "SERVICO",
+                              "PECA"
+                            ]
+                          },
+                          "referenciaId": {
+                            "type": "string"
+                          },
+                          "nome": {
+                            "type": "string"
+                          },
+                          "quantidade": {
+                            "type": "integer"
+                          },
+                          "precoUnitario": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "tipo",
+                          "referenciaId",
+                          "nome",
+                          "quantidade",
+                          "precoUnitario"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "valorTotal": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "pagamento": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "preferenciaId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "linkPagamento": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "pagamentoId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "valor": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "metodo": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "detalhe": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "atualizadoEm": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "preferenciaId",
+                        "linkPagamento",
+                        "pagamentoId",
+                        "valor",
+                        "metodo",
+                        "detalhe",
+                        "atualizadoEm"
+                      ],
+                      "additionalProperties": false,
+                      "nullable": true
+                    },
+                    "motivo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "historico": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "observacao": {
+                            "type": "string"
+                          },
+                          "em": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "status",
+                          "observacao",
+                          "em"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "versao": {
+                      "type": "integer"
+                    },
+                    "criadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "atualizadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "ordemId",
+                    "sagaId",
+                    "numeroOS",
+                    "cliente",
+                    "itens",
+                    "valorTotal",
+                    "status",
+                    "pagamento",
+                    "motivo",
+                    "historico",
+                    "versao",
+                    "criadoEm",
+                    "atualizadoEm"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orcamentos/{id}/aprovar": {
+      "post": {
+        "summary": "Aprovar orçamento",
+        "tags": [
+          "Orçamentos"
+        ],
+        "description": "Cria a cobrança no Mercado Pago e devolve o link de pagamento. Pode ser feito pelo cliente (token da Lambda) ou pela oficina.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "ordemId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "sagaId": {
+                      "type": "string"
+                    },
+                    "numeroOS": {
+                      "type": "integer"
+                    },
+                    "cliente": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nome",
+                        "email"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "itens": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tipo": {
+                            "type": "string",
+                            "enum": [
+                              "SERVICO",
+                              "PECA"
+                            ]
+                          },
+                          "referenciaId": {
+                            "type": "string"
+                          },
+                          "nome": {
+                            "type": "string"
+                          },
+                          "quantidade": {
+                            "type": "integer"
+                          },
+                          "precoUnitario": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "tipo",
+                          "referenciaId",
+                          "nome",
+                          "quantidade",
+                          "precoUnitario"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "valorTotal": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "pagamento": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "preferenciaId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "linkPagamento": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "pagamentoId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "valor": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "metodo": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "detalhe": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "atualizadoEm": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "preferenciaId",
+                        "linkPagamento",
+                        "pagamentoId",
+                        "valor",
+                        "metodo",
+                        "detalhe",
+                        "atualizadoEm"
+                      ],
+                      "additionalProperties": false,
+                      "nullable": true
+                    },
+                    "motivo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "historico": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "observacao": {
+                            "type": "string"
+                          },
+                          "em": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "status",
+                          "observacao",
+                          "em"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "versao": {
+                      "type": "integer"
+                    },
+                    "criadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "atualizadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "ordemId",
+                    "sagaId",
+                    "numeroOS",
+                    "cliente",
+                    "itens",
+                    "valorTotal",
+                    "status",
+                    "pagamento",
+                    "motivo",
+                    "historico",
+                    "versao",
+                    "criadoEm",
+                    "atualizadoEm"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orcamentos/{id}/reprovar": {
+      "post": {
+        "summary": "Reprovar orçamento",
+        "tags": [
+          "Orçamentos"
+        ],
+        "description": "Encerra o orçamento e dispara a compensação da saga: a OS é cancelada.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "motivo": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 500
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "ordemId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "sagaId": {
+                      "type": "string"
+                    },
+                    "numeroOS": {
+                      "type": "integer"
+                    },
+                    "cliente": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nome",
+                        "email"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "itens": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tipo": {
+                            "type": "string",
+                            "enum": [
+                              "SERVICO",
+                              "PECA"
+                            ]
+                          },
+                          "referenciaId": {
+                            "type": "string"
+                          },
+                          "nome": {
+                            "type": "string"
+                          },
+                          "quantidade": {
+                            "type": "integer"
+                          },
+                          "precoUnitario": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "tipo",
+                          "referenciaId",
+                          "nome",
+                          "quantidade",
+                          "precoUnitario"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "valorTotal": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "pagamento": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "preferenciaId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "linkPagamento": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "pagamentoId": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "valor": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "metodo": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "detalhe": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "atualizadoEm": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "preferenciaId",
+                        "linkPagamento",
+                        "pagamentoId",
+                        "valor",
+                        "metodo",
+                        "detalhe",
+                        "atualizadoEm"
+                      ],
+                      "additionalProperties": false,
+                      "nullable": true
+                    },
+                    "motivo": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "historico": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "observacao": {
+                            "type": "string"
+                          },
+                          "em": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "status",
+                          "observacao",
+                          "em"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "versao": {
+                      "type": "integer"
+                    },
+                    "criadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "atualizadoEm": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "ordemId",
+                    "sagaId",
+                    "numeroOS",
+                    "cliente",
+                    "itens",
+                    "valorTotal",
+                    "status",
+                    "pagamento",
+                    "motivo",
+                    "historico",
+                    "versao",
+                    "criadoEm",
+                    "atualizadoEm"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pagamentos/webhook": {
+      "post": {
+        "summary": "Notificação do Mercado Pago",
+        "tags": [
+          "Pagamentos"
+        ],
+        "description": "Valida a assinatura x-signature (quando MERCADO_PAGO_WEBHOOK_SECRET está configurado), consulta o pagamento na API do Mercado Pago e só então atualiza o orçamento. O corpo da notificação nunca é usado como fonte do status.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "not": {}
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "data.id",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "type",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "topic",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "id",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resultado": {
+                      "type": "string",
+                      "enum": [
+                        "confirmado",
+                        "recusado",
+                        "estornado_tardio",
+                        "ignorado"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "resultado"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pagamentos/simulador/{orcamentoId}": {
+      "post": {
+        "summary": "Simular o pagamento de um orçamento (só no modo simulado)",
+        "tags": [
+          "Pagamentos"
+        ],
+        "description": "Faz o papel do Mercado Pago em desenvolvimento e na demonstração: aprova ou recusa o pagamento do orçamento como se o webhook tivesse chegado. Informe valor para simular pagamento divergente.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "aprovado": {
+                    "type": "boolean"
+                  },
+                  "valor": {
+                    "type": "number",
+                    "exclusiveMinimum": true,
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "aprovado"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "orcamentoId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resultado": {
+                      "type": "string",
+                      "enum": [
+                        "confirmado",
+                        "recusado",
+                        "estornado_tardio",
+                        "ignorado"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "resultado"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "statusCode",
+                    "code",
+                    "message"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Orçamentos"
+    },
+    {
+      "name": "Pagamentos"
+    },
+    {
+      "name": "Saúde"
+    }
+  ]
+}

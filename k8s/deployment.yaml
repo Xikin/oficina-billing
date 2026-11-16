@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oficina-billing
+  namespace: oficina
+  labels:
+    app: oficina-billing
+    app.kubernetes.io/name: oficina-billing
+    app.kubernetes.io/part-of: oficina
+spec:
+  selector:
+    matchLabels:
+      app: oficina-billing
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: oficina-billing
+        app.kubernetes.io/name: oficina-billing
+    spec:
+      terminationGracePeriodSeconds: 60
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: oficina-billing
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
+      containers:
+        - name: oficina-billing
+          image: DOCKER_IMAGE_PLACEHOLDER
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: oficina-billing-config
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: MONGODB_URI
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: JWT_SECRET
+            - name: JWT_CLIENTE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: JWT_CLIENTE_SECRET
+            - name: RABBITMQ_URL
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: RABBITMQ_URL
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: MERCADO_PAGO_ACCESS_TOKEN
+                  optional: true
+            - name: MERCADO_PAGO_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: MERCADO_PAGO_WEBHOOK_SECRET
+                  optional: true
+            - name: NEW_RELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: oficina-billing-secret
+                  key: NEW_RELIC_LICENSE_KEY
+                  optional: true
+            - name: APP_VERSION
+              value: "APP_VERSION_PLACEHOLDER"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 100
+            runAsGroup: 101
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            failureThreshold: 30
+            periodSeconds: 5
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
