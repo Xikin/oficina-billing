@@ -1,0 +1,2241 @@
+{
+  "item": [
+    {
+      "id": "cd75a6fb-94fc-486b-abbd-4625a282ac1e",
+      "name": "Orçamentos",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "744f1a49-1df3-441c-89b7-ec2e601d35b9",
+          "name": "Listar orçamentos",
+          "request": {
+            "name": "Listar orçamentos",
+            "description": {},
+            "url": {
+              "path": [
+                "orcamentos",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "REPROVADO"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7b5a328-da86-406d-b8c8-a7780941e4c1",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "status",
+                      "value": "REPROVADO"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"8c70972b-5732-b838-db1b-c660ee5306c6\",\n      \"ordemId\": \"d42bc410-a5e0-fd57-c725-f31a2d069427\",\n      \"sagaId\": \"string\",\n      \"numeroOS\": 7311,\n      \"cliente\": {\n        \"id\": \"string\",\n        \"nome\": \"string\",\n        \"email\": \"string\"\n      },\n      \"itens\": [\n        {\n          \"tipo\": \"SERVICO\",\n          \"referenciaId\": \"string\",\n          \"nome\": \"string\",\n          \"quantidade\": 3897,\n          \"precoUnitario\": 5393.737888069262\n        },\n        {\n          \"tipo\": \"SERVICO\",\n          \"referenciaId\": \"string\",\n          \"nome\": \"string\",\n          \"quantidade\": 9453,\n          \"precoUnitario\": 9067.988051910601\n        }\n      ],\n      \"valorTotal\": 3556.9986070480463,\n      \"status\": \"string\",\n      \"pagamento\": {\n        \"status\": \"string\",\n        \"preferenciaId\": \"string\",\n        \"linkPagamento\": \"string\",\n        \"pagamentoId\": \"string\",\n        \"valor\": 5851.3869515012075,\n        \"metodo\": \"string\",\n        \"detalhe\": \"string\",\n        \"atualizadoEm\": \"1984-12-25T18:04:11.277Z\"\n      },\n      \"motivo\": \"string\",\n      \"historico\": [\n        {\n          \"status\": \"string\",\n          \"observacao\": \"string\",\n          \"em\": \"2004-08-14T04:52:57.453Z\"\n        },\n        {\n          \"status\": \"string\",\n          \"observacao\": \"string\",\n          \"em\": \"2022-10-15T02:59:03.119Z\"\n        }\n      ],\n      \"versao\": 8543,\n      \"criadoEm\": \"1955-07-28T08:39:38.658Z\",\n      \"atualizadoEm\": \"1993-12-25T21:50:01.149Z\"\n    },\n    {\n      \"id\": \"22ed007a-1c68-e951-dd5b-4cf859d46c4e\",\n      \"ordemId\": \"2566afa2-d6be-0360-5959-6b3dfb25034f\",\n      \"sagaId\": \"string\",\n      \"numeroOS\": 9237,\n      \"cliente\": {\n        \"id\": \"string\",\n        \"nome\": \"string\",\n        \"email\": \"string\"\n      },\n      \"itens\": [\n        {\n          \"tipo\": \"SERVICO\",\n          \"referenciaId\": \"string\",\n          \"nome\": \"string\",\n          \"quantidade\": 8821,\n          \"precoUnitario\": 8341.338785207894\n        },\n        {\n          \"tipo\": \"SERVICO\",\n          \"referenciaId\": \"string\",\n          \"nome\": \"string\",\n          \"quantidade\": 8338,\n          \"precoUnitario\": 5039.762215092808\n        }\n      ],\n      \"valorTotal\": 8469.69212176216,\n      \"status\": \"string\",\n      \"pagamento\": {\n        \"status\": \"string\",\n        \"preferenciaId\": \"string\",\n        \"linkPagamento\": \"string\",\n        \"pagamentoId\": \"string\",\n        \"valor\": 4137.764368750165,\n        \"metodo\": \"string\",\n        \"detalhe\": \"string\",\n        \"atualizadoEm\": \"1972-10-17T13:40:39.198Z\"\n      },\n      \"motivo\": \"string\",\n      \"historico\": [\n        {\n          \"status\": \"string\",\n          \"observacao\": \"string\",\n          \"em\": \"1967-05-30T09:29:42.941Z\"\n        },\n        {\n          \"status\": \"string\",\n          \"observacao\": \"string\",\n          \"em\": \"1985-07-18T23:57:13.596Z\"\n        }\n      ],\n      \"versao\": 3568,\n      \"criadoEm\": \"2011-08-22T00:21:19.259Z\",\n      \"atualizadoEm\": \"1961-09-01T12:59:46.156Z\"\n    }\n  ],\n  \"meta\": {\n    \"page\": 7644,\n    \"limit\": 2389,\n    \"total\": 3982,\n    \"totalPages\": 8427\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "989c959d-e6d3-469e-b5ef-2a40305067de",
+          "name": "Buscar orçamento",
+          "request": {
+            "name": "Buscar orçamento",
+            "description": {
+              "content": "O cliente só enxerga os próprios orçamentos.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orcamentos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "99e9e7fc-d0af-477c-8129-6fe51ea39068",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"633ceb5b-f979-5a24-7fd1-537e984df3c3\",\n  \"ordemId\": \"db5ddc60-99ea-69c2-b7b6-fd0ced7502e2\",\n  \"sagaId\": \"string\",\n  \"numeroOS\": 7110,\n  \"cliente\": {\n    \"id\": \"string\",\n    \"nome\": \"string\",\n    \"email\": \"string\"\n  },\n  \"itens\": [\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 4097,\n      \"precoUnitario\": 3492.573371663091\n    },\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 6586,\n      \"precoUnitario\": 3717.6914556122365\n    }\n  ],\n  \"valorTotal\": 4456.974896416976,\n  \"status\": \"string\",\n  \"pagamento\": {\n    \"status\": \"string\",\n    \"preferenciaId\": \"string\",\n    \"linkPagamento\": \"string\",\n    \"pagamentoId\": \"string\",\n    \"valor\": 1189.8911831199089,\n    \"metodo\": \"string\",\n    \"detalhe\": \"string\",\n    \"atualizadoEm\": \"1971-02-21T12:22:06.919Z\"\n  },\n  \"motivo\": \"string\",\n  \"historico\": [\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1968-06-07T04:58:35.277Z\"\n    },\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1969-10-13T23:00:12.735Z\"\n    }\n  ],\n  \"versao\": 9616,\n  \"criadoEm\": \"1982-01-26T00:51:55.784Z\",\n  \"atualizadoEm\": \"1996-11-17T05:21:11.680Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78f6fa25-7c4e-4bfc-a711-3dcb64f0ddc3",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7114a16b-07c7-4198-aa77-7c88a6624e14",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfb4accb-4392-47cd-94db-82901ace7dd1",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd9e8d80-e4ff-4a11-9b3a-30170303bf0d",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dc6e7bf-6004-482a-ba9b-1fbf0763e33b",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e84f00d-7003-44f3-b9f6-117bd55cd73b",
+          "name": "Buscar orçamento pela OS",
+          "request": {
+            "name": "Buscar orçamento pela OS",
+            "description": {},
+            "url": {
+              "path": [
+                "orcamentos",
+                "ordem",
+                ":ordemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                  "key": "ordemId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e013bcb-8f12-4cc2-989e-38ad8d4a4584",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    "ordem",
+                    ":ordemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "ordemId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"633ceb5b-f979-5a24-7fd1-537e984df3c3\",\n  \"ordemId\": \"db5ddc60-99ea-69c2-b7b6-fd0ced7502e2\",\n  \"sagaId\": \"string\",\n  \"numeroOS\": 7110,\n  \"cliente\": {\n    \"id\": \"string\",\n    \"nome\": \"string\",\n    \"email\": \"string\"\n  },\n  \"itens\": [\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 4097,\n      \"precoUnitario\": 3492.573371663091\n    },\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 6586,\n      \"precoUnitario\": 3717.6914556122365\n    }\n  ],\n  \"valorTotal\": 4456.974896416976,\n  \"status\": \"string\",\n  \"pagamento\": {\n    \"status\": \"string\",\n    \"preferenciaId\": \"string\",\n    \"linkPagamento\": \"string\",\n    \"pagamentoId\": \"string\",\n    \"valor\": 1189.8911831199089,\n    \"metodo\": \"string\",\n    \"detalhe\": \"string\",\n    \"atualizadoEm\": \"1971-02-21T12:22:06.919Z\"\n  },\n  \"motivo\": \"string\",\n  \"historico\": [\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1968-06-07T04:58:35.277Z\"\n    },\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1969-10-13T23:00:12.735Z\"\n    }\n  ],\n  \"versao\": 9616,\n  \"criadoEm\": \"1982-01-26T00:51:55.784Z\",\n  \"atualizadoEm\": \"1996-11-17T05:21:11.680Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e887202-3c8e-42fe-be58-e908ffab91e6",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    "ordem",
+                    ":ordemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "ordemId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43ec7d50-66bf-4e1d-8e12-13545ee257c9",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    "ordem",
+                    ":ordemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "ordemId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fdf43d0-0d47-4adb-817f-30d921585270",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    "ordem",
+                    ":ordemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "ordemId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74919bad-d0b5-432e-a0d1-ee2c80d85cd0",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    "ordem",
+                    ":ordemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "ordemId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4c574a8-95e2-40d3-bd58-e61739d4fb93",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    "ordem",
+                    ":ordemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "ordemId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "805a3973-1b0b-45ca-b96f-1e4cf392dbe4",
+          "name": "Aprovar orçamento",
+          "request": {
+            "name": "Aprovar orçamento",
+            "description": {
+              "content": "Cria a cobrança no Mercado Pago e devolve o link de pagamento. Pode ser feito pelo cliente (token da Lambda) ou pela oficina.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orcamentos",
+                ":id",
+                "aprovar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d2d40db2-6f10-43b1-8503-8314025745b8",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "aprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"633ceb5b-f979-5a24-7fd1-537e984df3c3\",\n  \"ordemId\": \"db5ddc60-99ea-69c2-b7b6-fd0ced7502e2\",\n  \"sagaId\": \"string\",\n  \"numeroOS\": 7110,\n  \"cliente\": {\n    \"id\": \"string\",\n    \"nome\": \"string\",\n    \"email\": \"string\"\n  },\n  \"itens\": [\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 4097,\n      \"precoUnitario\": 3492.573371663091\n    },\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 6586,\n      \"precoUnitario\": 3717.6914556122365\n    }\n  ],\n  \"valorTotal\": 4456.974896416976,\n  \"status\": \"string\",\n  \"pagamento\": {\n    \"status\": \"string\",\n    \"preferenciaId\": \"string\",\n    \"linkPagamento\": \"string\",\n    \"pagamentoId\": \"string\",\n    \"valor\": 1189.8911831199089,\n    \"metodo\": \"string\",\n    \"detalhe\": \"string\",\n    \"atualizadoEm\": \"1971-02-21T12:22:06.919Z\"\n  },\n  \"motivo\": \"string\",\n  \"historico\": [\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1968-06-07T04:58:35.277Z\"\n    },\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1969-10-13T23:00:12.735Z\"\n    }\n  ],\n  \"versao\": 9616,\n  \"criadoEm\": \"1982-01-26T00:51:55.784Z\",\n  \"atualizadoEm\": \"1996-11-17T05:21:11.680Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a70c4cf-1bbb-4f1a-ae9a-7deea06c44b9",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "aprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b94bf5b-5c55-406a-b7b6-475f69b34383",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "aprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daa2ea15-f165-47f9-afd4-fe3b00de540a",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "aprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38417ca7-5280-40c8-ae7b-b29ac03c2236",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "aprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe8054b3-e492-4001-9347-6c96aa5c933f",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "aprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20731e32-fd5d-4373-99e0-d29d5df219b1",
+          "name": "Reprovar orçamento",
+          "request": {
+            "name": "Reprovar orçamento",
+            "description": {
+              "content": "Encerra o orçamento e dispara a compensação da saga: a OS é cancelada.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orcamentos",
+                ":id",
+                "reprovar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivo\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f7ff6bd9-2547-4530-b507-6acc32be76e8",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "reprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"633ceb5b-f979-5a24-7fd1-537e984df3c3\",\n  \"ordemId\": \"db5ddc60-99ea-69c2-b7b6-fd0ced7502e2\",\n  \"sagaId\": \"string\",\n  \"numeroOS\": 7110,\n  \"cliente\": {\n    \"id\": \"string\",\n    \"nome\": \"string\",\n    \"email\": \"string\"\n  },\n  \"itens\": [\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 4097,\n      \"precoUnitario\": 3492.573371663091\n    },\n    {\n      \"tipo\": \"PECA\",\n      \"referenciaId\": \"string\",\n      \"nome\": \"string\",\n      \"quantidade\": 6586,\n      \"precoUnitario\": 3717.6914556122365\n    }\n  ],\n  \"valorTotal\": 4456.974896416976,\n  \"status\": \"string\",\n  \"pagamento\": {\n    \"status\": \"string\",\n    \"preferenciaId\": \"string\",\n    \"linkPagamento\": \"string\",\n    \"pagamentoId\": \"string\",\n    \"valor\": 1189.8911831199089,\n    \"metodo\": \"string\",\n    \"detalhe\": \"string\",\n    \"atualizadoEm\": \"1971-02-21T12:22:06.919Z\"\n  },\n  \"motivo\": \"string\",\n  \"historico\": [\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1968-06-07T04:58:35.277Z\"\n    },\n    {\n      \"status\": \"string\",\n      \"observacao\": \"string\",\n      \"em\": \"1969-10-13T23:00:12.735Z\"\n    }\n  ],\n  \"versao\": 9616,\n  \"criadoEm\": \"1982-01-26T00:51:55.784Z\",\n  \"atualizadoEm\": \"1996-11-17T05:21:11.680Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dbe4c46-ee99-4e89-9f66-968d87279609",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "reprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2bfa848-fc92-4316-9a88-2319e368d476",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "reprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57698ff0-5203-4b2f-8eb1-bb3b86f3fd5c",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "reprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18df03f2-68a3-44a5-b68e-b0e1cb312888",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "reprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e53917dc-9ee7-4b29-b438-f16ea9b44fc2",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orcamentos",
+                    ":id",
+                    "reprovar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"motivo\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6be9ec8e-5074-4107-b9e9-e7cbca8fb976",
+      "name": "Pagamentos",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9fc3504c-9af8-481a-91ec-366080d8ff70",
+          "name": "Notificação do Mercado Pago",
+          "request": {
+            "name": "Notificação do Mercado Pago",
+            "description": {
+              "content": "Valida a assinatura x-signature (quando MERCADO_PAGO_WEBHOOK_SECRET está configurado), consulta o pagamento na API do Mercado Pago e só então atualiza o orçamento. O corpo da notificação nunca é usado como fonte do status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pagamentos",
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "data.id",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "key": "topic",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "string"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e6e629c-ef16-4e26-8cd0-33f041ddfc32",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pagamentos",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "data.id",
+                      "value": "string"
+                    },
+                    {
+                      "key": "type",
+                      "value": "string"
+                    },
+                    {
+                      "key": "topic",
+                      "value": "string"
+                    },
+                    {
+                      "key": "id",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultado\": \"ignorado\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdec1f84-f371-4674-9392-f7154cea2652",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pagamentos",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "data.id",
+                      "value": "string"
+                    },
+                    {
+                      "key": "type",
+                      "value": "string"
+                    },
+                    {
+                      "key": "topic",
+                      "value": "string"
+                    },
+                    {
+                      "key": "id",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce0203a8-34a2-44f3-937a-4d4898ce654b",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pagamentos",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "data.id",
+                      "value": "string"
+                    },
+                    {
+                      "key": "type",
+                      "value": "string"
+                    },
+                    {
+                      "key": "topic",
+                      "value": "string"
+                    },
+                    {
+                      "key": "id",
+                      "value": "string"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f279e96b-278a-4b08-a538-538318c54be3",
+          "name": "Simular o pagamento de um orçamento (só no modo simulado)",
+          "request": {
+            "name": "Simular o pagamento de um orçamento (só no modo simulado)",
+            "description": {
+              "content": "Faz o papel do Mercado Pago em desenvolvimento e na demonstração: aprova ou recusa o pagamento do orçamento como se o webhook tivesse chegado. Informe valor para simular pagamento divergente.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pagamentos",
+                "simulador",
+                ":orcamentoId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                  "key": "orcamentoId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aprovado\": true,\n  \"valor\": 4944.801989064314\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8464dc1c-2721-4af8-b966-dcb7c980d325",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pagamentos",
+                    "simulador",
+                    ":orcamentoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "orcamentoId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aprovado\": true,\n  \"valor\": 4944.801989064314\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resultado\": \"ignorado\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49352f7b-a137-4b83-a305-1eaf948fb9f1",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pagamentos",
+                    "simulador",
+                    ":orcamentoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "2d71e716-82df-9603-2162-846c7a9494d0",
+                      "key": "orcamentoId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aprovado\": true,\n  \"valor\": 4944.801989064314\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 9958,\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "efa9f336-c570-424c-bae8-603b4a749257",
+      "name": "Saúde",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a5fb32e-e741-4f7d-b701-e2eeec331399",
+          "name": "Liveness",
+          "request": {
+            "name": "Liveness",
+            "description": {},
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5693f35-beb0-4a0f-be2c-5e23951b620f",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4f60b43-85ee-4531-88b8-a8f383a0d77c",
+          "name": "Readiness — MongoDB acessível",
+          "request": {
+            "name": "Readiness — MongoDB acessível",
+            "description": {},
+            "url": {
+              "path": [
+                "health",
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d81124ad-534a-4f1e-b81a-3f8d1b3b385d",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "{{billingUrl}}"
+    }
+  ],
+  "info": {
+    "_postman_id": "d95b5824-3902-463b-907c-56738fbc4fc2",
+    "name": "Oficina — Orçamento e Pagamento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orçamentos, aprovação pelo cliente e cobrança pelo Mercado Pago (modo simulado). Participa da saga de atendimento pelo RabbitMQ.",
+      "type": "text/plain"
+    }
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  }
+}

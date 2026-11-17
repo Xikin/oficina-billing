@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oficina-billing-config
+  namespace: oficina
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  HOST: "0.0.0.0"
+  ALLOWED_ORIGINS: ""
+  LOG_LEVEL: "info"
+  NEW_RELIC_APP_NAME: "oficina-billing"
+  SWAGGER_ENABLED: "true"
+  MONGODB_DB: "oficina_billing"
+  MERCADO_PAGO_MODO: "MERCADO_PAGO_MODO_PLACEHOLDER"
+  BILLING_URL_PUBLICA: "BILLING_URL_PUBLICA_PLACEHOLDER"
+  RABBITMQ_EXCHANGE: "oficina.saga"
+  MENSAGERIA_MAX_TENTATIVAS: "5"
+  MENSAGERIA_ATRASO_RETENTATIVA_MS: "5000"
+  OUTBOX_INTERVALO_MS: "1000"
